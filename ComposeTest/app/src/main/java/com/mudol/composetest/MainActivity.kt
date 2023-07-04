@@ -51,8 +51,10 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun MyApp(modifier: Modifier = Modifier) {
+    // by 키워드는 매번 .value를 입력할 필요가 없도록 해주는 속성 위임
+    // State Hoisting
     var shouldShowOnboarding by rememberSaveable { mutableStateOf(true) }
-
+    // Surface 내부에 중첩된 구성요서는 배경 색상 위에 그려진다.
     Surface(modifier, color = MaterialTheme.colorScheme.background) {
         if (shouldShowOnboarding) {
             OnboardingScreen(onContinueClicked = { shouldShowOnboarding = false })
@@ -87,6 +89,10 @@ private fun Greetings(
     modifier: Modifier = Modifier,
     names: List<String> = List(1000) { "$it" }
 ) {
+    /* 화면에 보이는 항목만 렌더링하므로 항목이 많은 목록을 렌더링할 때 성능이 향상됩니다.
+       LazyColumn은 RecyclerView와 같은 하위 요소를 재활용하지 않습니다.
+       컴포저블을 방출하는 것은 Android Views를 인스턴스화하는 것보다 상대적으로 비용이 적게 들므로
+       LazyColumn은 스크롤 할 때 새 컴포저블을 방출하고 계속 성능을 유지합니다.*/
     LazyColumn(modifier = modifier.padding(vertical = 4.dp)) {
         items(items = names) { name ->
             Greeting(name = name)
