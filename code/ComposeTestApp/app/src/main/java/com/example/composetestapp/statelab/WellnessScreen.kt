@@ -1,5 +1,6 @@
 package com.example.composetestapp.statelab
 
+import android.util.Log
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -21,6 +22,10 @@ import androidx.compose.ui.unit.dp
 
 class WellnessScreen {
 
+    companion object {
+        private const val TAG = "WellnessScreen"
+    }
+
     @Composable
     @Preview(showSystemUi = true)
     fun WellnessScreen(modifier: Modifier = Modifier) {
@@ -39,12 +44,19 @@ class WellnessScreen {
         Column(modifier = modifier.padding(16.dp)) {
             if (count > 0) {
                 var showTask by remember { mutableStateOf(true) }
-
-                if(showTask){
+                if (showTask) {
                     Text(
                         text = "You've had ${count} glasses.",
                         modifier = modifier,
                     )
+                    WellnessTaskItem(
+                        taskName = "15분 걷기",
+                        modifier = modifier,
+                        onClose = {
+                            showTask = false
+                        }
+                    )
+
                 }
             }
             Button(
@@ -60,9 +72,10 @@ class WellnessScreen {
     @Composable
     fun WellnessTaskItem(
         taskName: String,
-        onClose: () -> Unit,
+        onClose: () -> Unit, // 클릭 이벤트를 컴포저블에서 직접 정의하는 대신 람다로 넘긴다!
         modifier: Modifier = Modifier
     ) {
+        Log.d(TAG, "WellnessTaskItem re-composited")
         Row(
             modifier = modifier, verticalAlignment = Alignment.CenterVertically
         ) {
@@ -78,4 +91,15 @@ class WellnessScreen {
         }
     }
 
+    @Composable
+    fun UselessWrapper(
+        modifier: Modifier = Modifier,
+        onClose: () -> Unit
+    ) {
+        Log.d(TAG, "UselessWrapper re-composited")
+        WellnessTaskItem(
+            taskName = "WellnessTaskItem TaskName",
+            onClose = onClose
+        )
+    } // 이거 맨날 리컴포지션 된다... visibility가 바뀐다는 차이가 있어서 그런가보다 도넛홀 예시로는 부족했음
 }
