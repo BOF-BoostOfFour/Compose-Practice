@@ -229,3 +229,30 @@ fun FavoriteCollectionCardPreviews() {
     }
 }
 
+@Composable
+fun HomeSection(
+    @StringRes title: Int,
+    modifier: Modifier = Modifier,
+    content: @Composable () -> Unit,
+) {
+    Column(modifier) {
+        Text(
+            text = stringResource(id = title),
+            style = MaterialTheme.typography.bodySmall,
+            modifier = Modifier
+                .paddingFromBaseline(top = 48.dp, bottom = 8.dp)
+                .padding(horizontal = 16.dp)
+        )
+        content()
+    }
+}
+
+@Preview(showBackground = true, backgroundColor = 0xFFF0EAE2)
+@Composable
+fun HomeSectionPreview() {
+    Compose_practiceTheme {
+        HomeSection(title = R.string.app_name) {
+            AlignYourBodyRow()
+        }
+    }
+}
