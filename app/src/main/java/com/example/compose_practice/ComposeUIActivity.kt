@@ -38,7 +38,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -78,6 +77,14 @@ fun SearchBar(modifier: Modifier = Modifier) {
     )
 }
 
+@Preview
+@Composable
+fun SearchBarPreview() {
+    Compose_practiceTheme {
+        SearchBar()
+    }
+}
+
 @Composable
 fun AlignYourBodyElement(
     @StringRes text: Int,
@@ -106,6 +113,19 @@ fun AlignYourBodyElement(
     }
 }
 
+
+@Preview
+@Composable
+fun AlignYourBodyElementPreview() {
+    Compose_practiceTheme {
+        AlignYourBodyElement(
+            text = R.string.app_name,
+            drawable = R.drawable.ic_launcher_background,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
 private val alignYourBodyData = listOf(
     R.drawable.ic_launcher_background to R.string.app_name,
     R.drawable.ic_launcher_background to R.string.show_less,
@@ -127,6 +147,14 @@ fun AlignYourBodyRow(
         items(alignYourBodyData) { item ->
             AlignYourBodyElement(drawable = item.drawable, text = item.text)
         }
+    }
+}
+
+@Preview
+@Composable
+fun AlignYourBodyElementsPreview() {
+    Compose_practiceTheme {
+        AlignYourBodyRow()
     }
 }
 
@@ -180,33 +208,6 @@ fun FavoriteCollectionsGrid(
     }
 }
 
-@Preview
-@Composable
-fun SearchBarPreview() {
-    Compose_practiceTheme {
-        SearchBar()
-    }
-}
-
-@Preview
-@Composable
-fun AlignYourBodyElementsPreview() {
-    Compose_practiceTheme {
-        AlignYourBodyRow()
-    }
-}
-
-@Preview
-@Composable
-fun AlignYourBodyElementPreview() {
-    Compose_practiceTheme {
-        AlignYourBodyElement(
-            text = R.string.app_name,
-            drawable = R.drawable.ic_launcher_background,
-            modifier = Modifier.padding(8.dp)
-        )
-    }
-}
 
 @Preview
 @Composable
@@ -227,5 +228,4 @@ fun FavoriteCollectionCardPreviews() {
         FavoriteCollectionsGrid()
     }
 }
-
 
