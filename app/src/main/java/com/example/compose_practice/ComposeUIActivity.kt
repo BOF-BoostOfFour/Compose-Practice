@@ -6,7 +6,9 @@ import androidx.activity.compose.setContent
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,6 +17,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
@@ -35,6 +39,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.compose_practice.ui.theme.Compose_practiceTheme
+import com.example.compose_practice.model.DrawableStringPair
 
 class ComposeUIActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -96,6 +101,30 @@ fun AlignYourBodyElement(
     }
 }
 
+private val alignYourBodyData = listOf(
+    R.drawable.ic_launcher_background to R.string.app_name,
+    R.drawable.ic_launcher_background to R.string.show_less,
+    R.drawable.ic_launcher_background to R.string.show_more,
+    R.drawable.ic_launcher_background to R.string.app_name,
+    R.drawable.ic_launcher_background to R.string.app_name,
+    R.drawable.ic_launcher_background to R.string.app_name
+).map { DrawableStringPair(it.first, it.second) }
+
+@Composable
+fun AlignYourBodyRow(
+    modifier: Modifier = Modifier
+) {
+    LazyRow(
+        horizontalArrangement = Arrangement.spacedBy(8.dp),
+        contentPadding = PaddingValues(horizontal = 16.dp),
+        modifier = modifier
+    ) {
+        items(alignYourBodyData) { item ->
+            AlignYourBodyElement(drawable = item.drawable, text = item.text)
+        }
+    }
+}
+
 @Composable
 fun FavoriteCollectionCard(
     @StringRes text: Int,
@@ -136,6 +165,14 @@ fun SearchBarPreview() {
 
 @Preview
 @Composable
+fun AlignYourBodyElementsPreview() {
+    Compose_practiceTheme {
+        AlignYourBodyRow()
+    }
+}
+
+@Preview
+@Composable
 fun AlignYourBodyElementPreview() {
     Compose_practiceTheme {
         AlignYourBodyElement(
@@ -157,3 +194,4 @@ fun FavoriteCollectionCardPreview() {
         )
     }
 }
+
