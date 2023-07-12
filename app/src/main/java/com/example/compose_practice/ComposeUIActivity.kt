@@ -7,18 +7,21 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -69,7 +72,7 @@ fun SearchBar(modifier: Modifier = Modifier) {
 fun AlignYourBodyElement(
     @StringRes text: Int,
     @DrawableRes drawable: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -93,6 +96,35 @@ fun AlignYourBodyElement(
     }
 }
 
+@Composable
+fun FavoriteCollectionCard(
+    @StringRes text: Int,
+    @DrawableRes drawable: Int,
+    modifier: Modifier = Modifier,
+) {
+    Surface(
+        shape = MaterialTheme.shapes.small,
+        modifier = modifier
+    ) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.width(192.dp)
+        ) {
+            Image(
+                painter = painterResource(id = drawable),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.size(56.dp)
+            )
+            Text(
+                text = stringResource(id = text),
+                style = MaterialTheme.typography.bodyMedium,
+                modifier = Modifier.padding(horizontal = 16.dp)
+            )
+        }
+    }
+}
+
 
 @Preview
 @Composable
@@ -107,6 +139,18 @@ fun SearchBarPreview() {
 fun AlignYourBodyElementPreview() {
     Compose_practiceTheme {
         AlignYourBodyElement(
+            text = R.string.app_name,
+            drawable = R.drawable.ic_launcher_background,
+            modifier = Modifier.padding(8.dp)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun FavoriteCollectionCardPreview() {
+    Compose_practiceTheme {
+        FavoriteCollectionCard(
             text = R.string.app_name,
             drawable = R.drawable.ic_launcher_background,
             modifier = Modifier.padding(8.dp)
